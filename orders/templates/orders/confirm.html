@@ -1,0 +1,28 @@
+{% extends 'orders/base.html' %}
+
+{% block title %}
+    Confirm Order
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto confirm">
+                <h4>Hi, {{ username }}</h4>
+                <hr>
+                <h5>Your orders</h5>
+                <ol>
+                    {% for orders in user_order %}
+                        <li>{{ orders.order }} ${{ orders.price }}</li>
+                    {% endfor %}
+                </ol>
+                <hr>
+                <form action="{% url 'confirm_order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="total" value={{ total }}><p>Total: {{ total }}</p>
+                    <button class="btn btn-dark">Confirm Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

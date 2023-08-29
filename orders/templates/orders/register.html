@@ -1,0 +1,44 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-wrapper">
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <h3>Register here to order foods.</h3>
+                <hr>
+                <div class="message">
+                    {% if message %}
+                        {{ message }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input name="firstName" type="text" class="form-control" autofocus required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input name="lastName" type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <lebel>Email address</lebel>
+                    <input name="email" type="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input name="username" type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input name="password" type="password" class="form-control" required>
+                </div>
+                <button class="btn btn-dark">Register</button>
+            </form>
+        </div>
+    </div>  
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends 'orders/base.html' %}
+
+{% block title %}
+    Staff Account
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto confirm">
+                <h4>Hi, {{ username }}</h4>
+                <hr>
+                <h5>Customer orders</h5>
+                <ol>
+                    {% for order in shopping_cart %}
+                        <div class="customer-order">
+                            <li>Customer: {{ order.username }}</li>
+                            <p>Order: {{ order.order}} {{ order.toppingsList }} </p>
+                            <p>Price: {{ order.price }}</p>
+                            {% if order.approved == "approved" %}
+                                <button class="btn btn-dark" disabled>Confirmed</button>
+                            {% else %}
+                                <form action="{% url 'approve_order' order.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-dark">Confirm Order</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+{% endblock %}

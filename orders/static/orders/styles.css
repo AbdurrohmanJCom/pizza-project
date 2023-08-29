@@ -1,0 +1,82 @@
+.navbar-text{
+    color: #ff4da6;
+  }
+  
+.shopping-cart {
+  word-wrap: break-word;
+}
+
+.form-wrapper {
+    width: 60vw;
+    margin: 0 auto;
+    padding: 5%;
+    background-color: burlywood; 
+}
+  
+.message {
+    text-align: center;
+    color: crimson;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+  }
+
+#menu {
+  text-align: center;
+}
+
+.pizza {
+  background-color: rgb(252, 89, 89);
+}
+
+.toppings {
+  font: 16px sans-serif;;
+  font-style: italic;
+  text-decoration: none;
+  background-color: rgb(216, 213, 213);
+  color: #333333;
+  padding: 3px 6px;
+  box-shadow: 0 5px 0 grey;
+  outline: none;
+}
+
+.toppings:hover {
+  background-color: rgb(153, 153, 153);
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.toppings:active {
+  box-shadow: none;
+  top: 5px;
+  position: relative;
+}
+
+.green {
+  background-color: rgb(92, 179, 92);
+}
+
+.pending {
+  color: red;
+}
+
+.approved {
+  color: limegreen;
+}
+
+/* confirm page */
+.confirm {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgb(212, 212, 212);
+}

@@ -1,0 +1,158 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4 shopping-cart">
+                <h3>Shopping Cart</h3>
+                <ol>
+                    {% for order in shopping_cart %}
+                        {% if order.approved == "pending" or order.approved == "approved" %}
+                            <li>{{ order.order }} {{ order.toppingsList }} <b>${{ order.price }}</b> <span class="{{ order.approved }}">&#9679{{ order.approved }}</span></li>
+                        {% else %}
+                            <li>{{ order.order }} {{ order.toppingsList }} <b>${{ order.price }}</b></li>
+                        {% endif %}
+                    {% empty %}
+                        <li>Your cart is empty!</li>
+                    {% endfor %}
+                </ol>
+                {% if shopping_cart %}
+                    <form action="{% url 'customer_order' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="total" value={{ total }}><p>Total: ${{ total }}</p>
+                        <button class="btn btn-primary">Place Order</button> 
+                    </form>
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2 id="menu">Our Menu</h2>
+                <hr>
+                <div class="row pizza">
+                    <div class="col-8">
+                        <h4>Regular Pizza</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Small</th>
+                                <th scope="col">Large</th>
+                                </tr>
+                            </thead>
+                            {% for pizza in regular_pizzas %}
+                                <tbody>
+                                    <tr>
+                                    <td>{{ pizza.name }}</td>
+                                    <td><a id={{ pizza.name }} name="Small Regular Pizza {{ pizza.name }}" class="toppings">${{ pizza.small }}</a></td>
+                                    <td><a id={{ pizza.name }} name="Large Regular Pizza {{ pizza.name }}" class="toppings">${{ pizza.large }}</a></td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+
+                        <!-- Sicilian Pizza -->
+                        <h4>Sicilian Pizza</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Small</th>
+                                <th scope="col">Large</th>
+                                </tr>
+                            </thead>
+                            {% for pizza in sicilian_pizzas %}
+                                <tbody>
+                                    <tr>
+                                    <td>{{ pizza.name }}</td>
+                                    <td><a id={{ pizza.name }} name="Small Sicilian Pizza {{ pizza.name }}" class="toppings">${{ pizza.small }}</a></td>
+                                    <td><a id={{ pizza.name }} name="Large Sicilian Pizza {{ pizza.name }}" class="toppings">${{ pizza.large }}</a></td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="col">
+                        <h4>Toppings</h4>
+                        {% for topping in toppings %}
+                            <input type="checkbox" name="toppingCheck" class="toppingOption" value="{{ topping }}"> {{ topping }}<br>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <!-- Subs -->
+                <h4>Subs</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Small</th>
+                        <th scope="col">Large</th>
+                        </tr>
+                    </thead>
+                    {% for sub in subs %}
+                        <tbody>
+                            <tr>
+                            <td>{{ sub.name }}</td>
+                            <td><a href="{% url 'order' order_name=sub.name price=sub.small toppingsList="" %}" class="toppings">${{ sub.small }}</a></td>
+                            <td><a href="{% url 'order' order_name=sub.name price=sub.large toppingsList="" %}" class="toppings">${{ sub.large }}</a></td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+
+                <!-- Pasta -->
+                <h4>Pasta</h4>
+                <table class="table">
+                    {% for pasta in pastas %}
+                        <tbody>
+                            <tr>
+                            <td>{{ pasta.name }}</td>
+                            <td><a href="{% url 'order' order_name=pasta.name price=pasta.price toppingsList="" %}" class="toppings">{{ pasta.price }}</a></td>
+                            </tr>
+                        </tbody>
+                    {% endfor %}
+                </table>
+
+                <div class="green">
+                    <!-- Salad -->
+                    <h4>Salads</h4>
+                    <table class="table">
+                        {% for salad in salads %}
+                            <tbody>
+                                <tr>
+                                <td>{{ salad.name }}</td>
+                                <td><a href="{% url 'order' order_name=salad.name price=salad.price toppingsList="" %}" class="toppings">${{ salad.price }}</a></td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+
+                    <!-- Dinner Platters -->
+                    <h4>Dinner Platters</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Small</th>
+                            <th scope="col">Large</th>
+                            </tr>
+                        </thead>
+                        {% for dinner_platter in dinner_platters %}
+                            <tbody>
+                                <tr>
+                                <td>{{ dinner_platter.name }}</td>
+                                <td><a href="{% url 'order' order_name=dinner_platter.name price=dinner_platter.small toppingsList="" %}" class="toppings">${{ dinner_platter.small }}</a></td>
+                                <td><a href="{% url 'order' order_name=dinner_platter.name price=dinner_platter.large toppingsList="" %}" class="toppings">${{ dinner_platter.large }}</a></td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
